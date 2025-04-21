@@ -1,0 +1,19 @@
+name: code-quality
+on: pull-request
+jobs:
+  ruff:
+    runs-on: ubuntu-latest
+    continue-on-error: false # set to true when more jobs
+    steps:
+      - uses: actions/checkout@v4
+      - name: "ruff-lint"
+        uses: astral-sh/ruff-action@v3
+      - name: "ruff-format"
+        run: ruff format --diff > ruff.diff
+      - name: "get-ruff-diff"
+        if: failure()
+        id: get-diff
+        run: |
+          echo "RUFF_DIFF<<EOF"
+          cat ruff.diff
+          echo "EOF"
