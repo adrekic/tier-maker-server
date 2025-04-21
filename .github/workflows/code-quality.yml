@@ -1,5 +1,5 @@
 name: code-quality
-on: pull-request
+on: pull_request
 jobs:
   ruff:
     runs-on: ubuntu-latest
